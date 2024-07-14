@@ -11,6 +11,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -79,7 +80,9 @@ public class PrefixManager {
                 PluginConfig.DEFAULT_PREFIX.CONTENT.getNotNull(),
                 PluginConfig.DEFAULT_PREFIX.WEIGHT.getNotNull(),
                 null,
-                readActions(PluginConfig.DEFAULT_PREFIX.ACTIONS.get())
+                readActions(PluginConfig.DEFAULT_PREFIX.ACTIONS.get()),
+                PluginConfig.DEFAULT_PREFIX.ITEM.NOT_USING.getNotNull(),
+                PluginConfig.DEFAULT_PREFIX.ITEM.USING.get(), null
         );
         Main.debugging("  完成默认前缀加载 " + defaultPrefix.getName());
     }
@@ -135,7 +138,16 @@ public class PrefixManager {
                 conf.getString("content", "&r"),
                 conf.getInt("weight", 1),
                 conf.getString("permission"),
-                readActions(conf.getStringList("actions"))
+                readActions(conf.getStringList("actions")),
+                readItem(
+                        conf.getConfigurationSection("item.has-perm"),
+                        new ItemStackFactory(Material.STONE)
+                                .setDisplayName(name)
+                                .addLore("§a➥ 点击切换到该前缀")
+                                .toItemStack()
+                ),
+                readItem(conf.getConfigurationSection("item.using"), null),
+                readItem(conf.getConfigurationSection("item.no-perm"), null)
         );
     }
 
