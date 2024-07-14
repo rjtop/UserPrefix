@@ -80,9 +80,7 @@ public class PrefixManager {
                 PluginConfig.DEFAULT_PREFIX.CONTENT.getNotNull(),
                 PluginConfig.DEFAULT_PREFIX.WEIGHT.getNotNull(),
                 null,
-                readActions(PluginConfig.DEFAULT_PREFIX.ACTIONS.get()),
-                PluginConfig.DEFAULT_PREFIX.ITEM.NOT_USING.getNotNull(),
-                PluginConfig.DEFAULT_PREFIX.ITEM.USING.get(), null
+                readActions(PluginConfig.DEFAULT_PREFIX.ACTIONS.get())
         );
         Main.debugging("  完成默认前缀加载 " + defaultPrefix.getName());
     }
